@@ -9,12 +9,9 @@
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="">
-        <div id="app">
-            <h1 class="text-3xl font-bold underline bg-red-400 text-white">
-                Hello world!
-            </h1>
-            <example-component></example-component>
+    <body class="h-screen text-gray-800">
+        <div id="app" class="h-full">
+            <Board></Board>
         </div>
     </body>
 </html>
