@@ -13,6 +13,7 @@ class CardList extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded = ['id'];
     public function cards(): HasMany
     {
         return $this->hasMany(Card::class, 'list_id');

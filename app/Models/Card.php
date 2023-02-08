@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Card extends Model
 {
     use HasFactory,SoftDeletes;
-
+    protected $guarded = ['id'];
     public function list() :BelongsTo
     {
         return $this->belongsTo(CardList::class, 'list_id');

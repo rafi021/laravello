@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Board extends Model
 {
     use HasFactory,SoftDeletes;
-
+    protected $guarded = ['id'];
     public function lists(): HasMany
     {
         return $this->hasMany(CardList::class, 'board_id');
