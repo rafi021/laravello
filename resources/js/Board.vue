@@ -1,37 +1,11 @@
 <script setup>
 import CardList from './components/List.vue';
-import gql from 'graphql-tag';
 import { useQuery } from '@vue/apollo-composable';
-const { result, loading } = useQuery(gql`
-    query boards{
-        boards{
-            data{
-                id
-                title
-                color
-                created_at
-                owner{
-                    id
-                    name
-                }
-                lists{
-                    id
-                    title
-                    cards{
-                        id
-                        title
-                    }
-                }
-            }paginatorInfo{
-                count,
-                currentPage,
-                lastPage
-                perPage,
-                total
-            }
-        }
-    }
-`)
+import { BOARDS_QUERY } from './graphql/boards'
+
+const { result, loading, refetch } = useQuery(BOARDS_QUERY);
+
+
 </script>
 <template>
     <div class="h-full flex flex-col items-stretch bg-purple-700">

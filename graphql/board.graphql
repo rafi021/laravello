@@ -1,0 +1,34 @@
+extend type Query {
+    boards(
+        title: String @where(operator: "like")
+        color: String @where(operator: "like")
+    ): [Board!]! @paginate(defaultCount: 10)
+    board(id: ID! @eq): Board @find
+}
+
+extend type Mutation {
+    createBoard(input: CreateBoardInput @spread): Board @create
+    updateBoard(id: ID!, input: UpdateBoardInput @spread): Board @update
+    deleteBoard(id: ID!): Board @delete
+}
+
+input CreateBoardInput {
+    title: String!
+    color: String!
+    owner_id: ID!
+}
+input UpdateBoardInput {
+    title: String!
+    color: String!
+    owner_id: ID!
+}
+
+type Board {
+    id: ID!
+    title: String!
+    color: String!
+    lists: [CardList!]! @hasMany
+    owner: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}

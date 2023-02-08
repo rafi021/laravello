@@ -1,0 +1,30 @@
+extend type Query{
+    cardlists(
+        title: String @where(operator: "like")
+    ): [CardList!]! @paginate(defaultCount: 10)
+    cardlist(id: ID! @eq): CardList @find
+}
+
+extend type Mutation {
+    createCardList(input: CreateCardListInput @spread): CardList @create
+    updateCardList(id: ID!, input: UpdateCardListInput @spread): CardList @update
+    deleteCardList(id: ID!): CardList @delete
+}
+
+input CreateCardListInput {
+    title: String!
+    board_id: ID!
+}
+input UpdateCardListInput {
+    title: String!
+    board_id: ID!
+}
+
+type CardList{
+    id: ID!
+    title: String!
+    cards: [Card!]! @hasMany
+    board: Board! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
