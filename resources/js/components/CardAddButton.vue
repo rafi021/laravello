@@ -2,8 +2,8 @@
 import { useQuery, useMutation } from '@vue/apollo-composable';
 import { CREATE_CARD } from '../graphql/card';
 import { BOARDS_QUERY } from '../graphql/boards';
-import { ref,reactive } from 'vue';
-import { resetCaches } from 'graphql-tag';
+import { reactive } from 'vue';
+
 
 const form = reactive({
     title: 'My New Another Task',
@@ -19,14 +19,15 @@ const reset = () => {
     form.list_id = 0;
 }
 
-const { result, loading, refetch } = useQuery(BOARDS_QUERY);
+const { refetch } = useQuery(BOARDS_QUERY);
 const { mutate: createCard, error, onDone } = useMutation(CREATE_CARD);
 
 const addNewCard = () => {
     createCard(form);
 }
 
-onDone(result => {
+onDone(({data}) => {
+    console.log(data);
     refetch();
     reset();
 })
